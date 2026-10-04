@@ -3,6 +3,7 @@ import Link from "next/link";
 import { formatMoney } from "@/lib/money";
 import { listProductsForAdmin } from "@/lib/services/product.service";
 import { EmptyState } from "@/components/ui/empty-state";
+import { DeleteProductButton } from "@/components/admin/delete-product-button";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -64,12 +65,15 @@ export default async function AdminProductsPage() {
                     </div>
                   </td>
                   <td className="table-cell text-right">
-                    <Link
-                      href={`/admin/products/${product.id}/edit`}
-                      className="btn-secondary px-3 py-1.5 text-xs"
-                    >
-                      Edit
-                    </Link>
+                    <div className="inline-flex items-center gap-2">
+                      <Link
+                        href={`/admin/products/${product.id}/edit`}
+                        className="btn-secondary px-3 py-1.5 text-xs"
+                      >
+                        Edit
+                      </Link>
+                      <DeleteProductButton productId={product.id} productName={product.name} />
+                    </div>
                   </td>
                 </tr>
               ))}

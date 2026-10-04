@@ -65,6 +65,26 @@ export async function getProductForAdmin(id: string) {
   return product;
 }
 
+export async function deleteProduct(id: string): Promise<{ deactivated: boolean }> {
+  const existing = await prisma.product.findUnique({
+    where: { id },
+    include: { _count: { select: { orders: true } } },
+  });
+  if (!existing) throw new AppError("Product not found.");
+
+  // Products with orders must stay for order history — deactivate instead
+  if (existing._count.orders > 0) {
+    await prisma.product.update({
+      where: { id },
+      data: { active: false, featured: false },
+    });
+    return { deactivated: true };
+  }
+
+  await prisma.product.delete({ where: { id } });
+  return { deactivated: false };
+}
+
 export async function createProduct(input: ProductInput) {
   const existing = await prisma.product.findUnique({ where: { slug: input.slug } });
   if (existing) throw new AppError("A product with this slug already exists.");

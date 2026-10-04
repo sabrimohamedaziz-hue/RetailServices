@@ -93,11 +93,11 @@ export function ProductForm({ initial }: { initial: ProductFormValues }) {
 
       <div className="flex flex-wrap gap-6 pt-1">
         <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-dim">
-          <input type="checkbox" name="active" defaultChecked={initial.active} className="h-4 w-4 accent-[#8b5cf6]" />
+          <input type="checkbox" name="active" defaultChecked={initial.active} className="h-4 w-4 accent-[#d3b384]" />
           Active (visible in store)
         </label>
         <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-dim">
-          <input type="checkbox" name="featured" defaultChecked={initial.featured} className="h-4 w-4 accent-[#8b5cf6]" />
+          <input type="checkbox" name="featured" defaultChecked={initial.featured} className="h-4 w-4 accent-[#d3b384]" />
           Featured (show on homepage)
         </label>
       </div>

@@ -9,6 +9,7 @@ import {
 } from "@/lib/services/deposit.service";
 import {
   createProduct,
+  deleteProduct,
   updateProduct,
 } from "@/lib/services/product.service";
 import { updateOrderStatus } from "@/lib/services/order.service";
@@ -125,6 +126,29 @@ export async function saveProductAction(
     await createProduct(parsed.data);
     revalidatePath("/admin/products");
     return { ok: true, message: "Product created." };
+  } catch (error) {
+    return { ok: false, error: getErrorMessage(error, GENERIC_ERROR) };
+  }
+}
+
+export async function deleteProductAction(productId: string): Promise<ActionResult> {
+  try {
+    await requireAdminId();
+  } catch (error) {
+    return { ok: false, error: getErrorMessage(error, ADMIN_ERROR) };
+  }
+
+  try {
+    const { deactivated } = await deleteProduct(productId);
+    revalidatePath("/admin/products");
+    revalidatePath("/store");
+    revalidatePath("/");
+    return {
+      ok: true,
+      message: deactivated
+        ? "Product has orders, so it was deactivated instead of deleted."
+        : "Product deleted.",
+    };
   } catch (error) {
     return { ok: false, error: getErrorMessage(error, GENERIC_ERROR) };
   }
