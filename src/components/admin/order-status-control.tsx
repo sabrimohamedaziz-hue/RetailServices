@@ -59,7 +59,7 @@ export function OrderStatusControl({
       <input
         value={noteValue}
         onChange={(e) => setNoteValue(e.target.value)}
-        placeholder="Internal note (optional)"
+        placeholder="Details to send the customer (login, code…)"
         className="input w-56 px-2.5 py-1.5 text-xs"
       />
     </div>

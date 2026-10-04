@@ -108,6 +108,15 @@ export default async function OrderDetailsPage({
           </div>
         </dl>
 
+        {order.adminNote && (
+          <div className="mt-6 rounded-lg border border-brand/30 bg-brand/10 p-4">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-mint">
+              Your order details from the team
+            </p>
+            <p className="whitespace-pre-wrap text-sm text-ink">{order.adminNote}</p>
+          </div>
+        )}
+
         {order.status === "PROCESSING" && (
           <p className="mt-6 text-sm text-ink-mute">
             Questions about this order? Open a ticket on our Discord server.
