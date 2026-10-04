@@ -41,14 +41,33 @@ async function saveProductImage(file: File): Promise<string> {
   if (file.size > MAX_IMAGE_BYTES) throw new Error("Image must be smaller than 5 MB.");
 
   const { randomBytes } = await import("crypto");
-  const { mkdir, writeFile } = await import("fs/promises");
-  const path = await import("path");
-
   const filename = `${Date.now()}-${randomBytes(6).toString("hex")}.${ext}`;
-  const dir = path.join(process.cwd(), "uploads", "products");
-  await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, filename), Buffer.from(await file.arrayBuffer()));
-  return `/uploads/products/${filename}`;
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) {
+    throw new Error("Supabase storage is not configured (missing env variables).");
+  }
+
+  const response = await fetch(
+    `${supabaseUrl}/storage/v1/object/products/${filename}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${serviceKey}`,
+        apikey: serviceKey,
+        "Content-Type": file.type,
+        "x-upsert": "false",
+      },
+      body: Buffer.from(await file.arrayBuffer()),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Image upload to Supabase failed.");
+  }
+
+  return `${supabaseUrl}/storage/v1/object/public/products/${filename}`;
 }
 
 async function requireAdminId(): Promise<string> {
