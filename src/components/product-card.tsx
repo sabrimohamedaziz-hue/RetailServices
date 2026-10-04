@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatMoney } from "@/lib/money";
+import { AddToCartButton } from "@/components/add-to-cart-button";
 
 export type ProductCardData = {
   slug: string;
@@ -48,6 +49,18 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             <span className="badge-red">Out of stock</span>
           )}
         </div>
+        {inStock && (
+          <AddToCartButton
+            className="btn-secondary mt-3 w-full text-xs"
+            item={{
+              slug: product.slug,
+              name: product.name,
+              price: String(product.price),
+              category: product.category,
+              imageUrl: product.imageUrl,
+            }}
+          />
+        )}
       </div>
     </Link>
   );

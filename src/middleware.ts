@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 // Edge Runtime and must not import server-only modules (Prisma, node:crypto).
 const SESSION_COOKIE = "cb_session";
 
-const PROTECTED_PREFIXES = ["/wallet", "/orders", "/profile"];
+const PROTECTED_PREFIXES = ["/wallet", "/orders", "/profile", "/checkout"];
 const ADMIN_PREFIXES = ["/admin"];
 
 export function middleware(request: NextRequest) {
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/wallet/:path*", "/orders/:path*", "/profile/:path*", "/admin/:path*"],
+  matcher: ["/wallet/:path*", "/orders/:path*", "/profile/:path*", "/admin/:path*", "/checkout/:path*"],
 };

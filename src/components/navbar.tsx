@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/logo";
+import { CartBadge } from "@/components/cart-badge";
 import { formatMoney } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { logoutAction } from "@/actions/auth.actions";
@@ -17,6 +18,7 @@ type NavUser = {
 
 const LINKS = [
   { href: "/store", label: "Store" },
+  { href: "/cart", label: "Cart" },
   { href: "/wallet", label: "Wallet" },
   { href: "/orders", label: "Orders" },
 ];
@@ -76,6 +78,7 @@ export function Navbar({ user }: { user: NavUser | null }) {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
+          <CartBadge />
           {user ? (
             <>
               {user.role === "CUSTOMER" && (
