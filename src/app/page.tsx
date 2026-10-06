@@ -4,6 +4,13 @@ import { ProductCard } from "@/components/product-card";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { CATEGORIES } from "@/lib/constants";
 
+const CATEGORIES_WITH_ICONS: Record<string, string> = {
+  Gaming: "🎮",
+  Subscriptions: "💳",
+  "Digital Products": "🎁",
+  Boosts: "🚀",
+};
+
 const CATEGORY_BLURBS: Record<string, string> = {
   Gaming: "Games, top-ups and in-game goods.",
   Subscriptions: "Premium accounts and monthly plans.",
@@ -93,10 +100,9 @@ export default async function HomePage() {
               href={`/store?category=${encodeURIComponent(category)}`}
               className="card card-hover group p-6"
             >
-              <div
-                aria-hidden
-                className="mb-5 h-9 w-9 rotate-45 rounded-md border border-brand/30 bg-brand/10 transition-transform duration-300 group-hover:rotate-[135deg]"
-              />
+              <div className="mb-5 text-4xl" aria-hidden>
+                {CATEGORIES_WITH_ICONS[category] ?? "✨"}
+              </div>
               <h3 className="font-medium text-ink">{category}</h3>
               <p className="mt-1 text-sm text-ink-mute">{CATEGORY_BLURBS[category]}</p>
             </Link>

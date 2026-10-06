@@ -39,14 +39,15 @@ body {
 }
 
 .ambient::before,
-.ambient::after {
+.ambient::after,
+.ambient .orb {
   content: "";
   position: absolute;
   width: 55vmax;
   height: 55vmax;
   border-radius: 9999px;
   filter: blur(120px);
-  opacity: 0.12;
+  opacity: 0.14;
   animation: drift 22s ease-in-out infinite alternate;
 }
 
@@ -64,15 +65,37 @@ body {
   animation-direction: alternate-reverse;
 }
 
+.ambient .orb-3 {
+  top: 35%;
+  left: 50%;
+  width: 40vmax;
+  height: 40vmax;
+  background: #7c8ea3;
+  opacity: 0.1;
+  animation: drift2 34s ease-in-out infinite alternate;
+}
+
 @keyframes drift {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
   50% {
-    transform: translate(12vw, 8vh) scale(1.15);
+    transform: translate(12vw, 8vh) scale(1.15) rotate(20deg);
   }
   100% {
-    transform: translate(-8vw, 12vh) scale(0.95);
+    transform: translate(-8vw, 12vh) scale(0.95) rotate(-10deg);
+  }
+}
+
+@keyframes drift2 {
+  0% {
+    transform: translate(-20vw, 0) scale(0.9);
+  }
+  50% {
+    transform: translate(20vw, -10vh) scale(1.2);
+  }
+  100% {
+    transform: translate(-10vw, 15vh) scale(1);
   }
 }
 
