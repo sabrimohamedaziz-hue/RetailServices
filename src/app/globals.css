@@ -27,9 +27,53 @@ html {
 
 body {
   @apply bg-void text-ink antialiased;
-  background-image:
-    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(211, 179, 132, 0.06), transparent),
-    radial-gradient(ellipse 40% 30% at 90% 110%, rgba(139, 152, 168, 0.05), transparent);
+}
+
+/* Animated ambient background — soft, slow, elegant (no neon) */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient::before,
+.ambient::after {
+  content: "";
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.12;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+.ambient::before {
+  top: -20%;
+  left: -15%;
+  background: #d3b384;
+}
+
+.ambient::after {
+  bottom: -25%;
+  right: -15%;
+  background: #8b98a8;
+  animation-duration: 28s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(12vw, 8vh) scale(1.15);
+  }
+  100% {
+    transform: translate(-8vw, 12vh) scale(0.95);
+  }
 }
 
 ::selection {
