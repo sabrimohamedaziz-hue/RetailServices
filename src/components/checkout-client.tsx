@@ -107,26 +107,6 @@ export function CheckoutClient({ balance, discordUrl }: { balance: string; disco
               order details.
             </div>
 
-            <div className="mt-6 border-t border-line/50 pt-6">
-              <p className="mb-2 text-sm font-medium text-ink">Prefer crypto?</p>
-              <p className="mb-4 text-xs leading-relaxed text-ink-mute">
-                Pay with cryptocurrency via NOWPayments, then open a Discord ticket with your
-                payment details so our team can verify it and send your order details.
-              </p>
-              <a
-                href="https://nowpayments.io/payment/?iid=5251743328&source=button"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-block"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://nowpayments.io/images/embeds/payments-button-black.svg"
-                  alt="Crypto payment button by NOWPayments"
-                  className="h-10"
-                />
-              </a>
-            </div>
           </div>
         </div>
       )}
