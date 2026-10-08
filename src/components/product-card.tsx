@@ -17,7 +17,7 @@ export function ProductCard({ product, currency = "EUR" }: { product: ProductCar
   const inStock = product.stock > 0;
 
   return (
-    <div className="card card-hover group flex flex-col overflow-hidden">
+    <div className="card card-hover crystal-sweep disperse group flex flex-col overflow-hidden">
       <Link
         href={`/store/${product.slug}`}
         className="zoom-img relative block aspect-[16/10] overflow-hidden bg-surface-2"

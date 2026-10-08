@@ -353,6 +353,102 @@ body {
 }
 
 /* ————————————————————————
+   SIGNATURE: crystal refraction
+   Light sweeping through a prism when hovering cards.
+   ———————————————————————— */
+.crystal-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.crystal-sweep::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(196, 181, 253, 0.16) 45%,
+    rgba(103, 232, 249, 0.14) 55%,
+    rgba(240, 171, 252, 0.12) 65%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  transition: left 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.crystal-sweep:hover::after {
+  left: 130%;
+}
+
+/* Rainbow dispersion on the card edge */
+.disperse {
+  transition: box-shadow 0.35s, border-color 0.35s, transform 0.35s;
+}
+
+.disperse:hover {
+  border-color: transparent;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    -1px 0 0 rgba(240, 171, 252, 0.5),
+    1px 0 0 rgba(103, 232, 249, 0.5),
+    0 -1px 0 rgba(196, 181, 253, 0.4),
+    0 26px 60px -24px rgba(124, 58, 237, 0.55);
+}
+
+/* ————————————————————————
+   Crystal cursor (desktop only)
+   ———————————————————————— */
+.crystal-cursor-dot,
+.crystal-cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 60;
+  will-change: transform;
+}
+
+.crystal-cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #c4b5fd, #67e8f9);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.9);
+}
+
+.crystal-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid rgba(196, 181, 253, 0.6);
+  box-shadow: 0 0 22px rgba(167, 139, 250, 0.35), inset 0 0 14px rgba(103, 232, 249, 0.18);
+  transition: width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.crystal-cursor-ring.is-pressed {
+  width: 26px;
+  height: 26px;
+  border-color: rgba(240, 171, 252, 0.9);
+}
+
+@media (hover: none) {
+  .crystal-cursor-dot,
+  .crystal-cursor-ring {
+    display: none;
+  }
+}
+
+@keyframes prism-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ————————————————————————
    Mobile tuning
    ———————————————————————— */
 @media (max-width: 767px) {

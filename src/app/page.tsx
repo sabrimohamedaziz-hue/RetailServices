@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
+import { RsMark } from "@/components/rs-mark";
+import { PrismDivider } from "@/components/prism-divider";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { getCurrency } from "@/lib/currency.server";
 import { CATEGORIES } from "@/lib/constants";
@@ -53,7 +55,11 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="hero-glow" aria-hidden />
-        <div className="relative mx-auto max-w-4xl px-4 pb-20 pt-24 text-center sm:px-6 sm:pt-32">
+        <div className="relative mx-auto max-w-4xl px-4 pb-20 pt-20 text-center sm:px-6 sm:pt-28">
+          <div className="mb-8 flex justify-center">
+            <RsMark size={104} />
+          </div>
+
           <div className="relative mx-auto mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-2 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
@@ -97,6 +103,8 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <PrismDivider />
+
       {/* Trust bar */}
       <Reveal className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
         <div className="grid gap-3 sm:grid-cols-3">
@@ -137,6 +145,8 @@ export default async function HomePage() {
           </div>
         </Reveal>
       )}
+
+      <PrismDivider />
 
       {/* Brands marquee */}
       <Reveal className="overflow-hidden pb-14">

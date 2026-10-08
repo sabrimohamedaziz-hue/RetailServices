@@ -4,6 +4,7 @@ import { ToastProvider } from "@/components/ui/toaster";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { AnnouncementBar } from "@/components/announcement-bar";
+import { CrystalCursor } from "@/components/crystal-cursor";
 import { getSessionUser } from "@/lib/auth";
 import { getCurrency } from "@/lib/currency.server";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default async function RootLayout({
         </div>
 
         <AnnouncementBar />
+        <CrystalCursor />
 
         <ToastProvider>
           <Navbar
