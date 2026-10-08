@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { formatMoney } from "@/lib/money";
+import { formatMoneyIn, type CurrencyCode } from "@/lib/currency";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 
 export type ProductCardData = {
@@ -13,7 +13,7 @@ export type ProductCardData = {
   stock: number;
 };
 
-export function ProductCard({ product }: { product: ProductCardData }) {
+export function ProductCard({ product, currency = "EUR" }: { product: ProductCardData; currency?: CurrencyCode }) {
   const inStock = product.stock > 0;
 
   return (
@@ -49,7 +49,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
 
         <div className="mt-auto flex items-center justify-between pt-3">
           <div>
-            <p className="text-lg font-semibold text-ink">{formatMoney(product.price)}</p>
+            <p className="text-lg font-semibold text-ink">{formatMoneyIn(product.price, currency)}</p>
             {inStock ? (
               <p className="text-xs text-success">{product.stock} in stock</p>
             ) : (

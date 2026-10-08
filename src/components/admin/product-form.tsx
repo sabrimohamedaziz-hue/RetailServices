@@ -13,6 +13,7 @@ type ProductFormValues = {
   description: string;
   price: string;
   category: string;
+  group: string;
   imageUrl: string;
   stock: number;
   active: boolean;
@@ -67,6 +68,10 @@ export function ProductForm({ initial }: { initial: ProductFormValues }) {
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
+        </div>
+        <div>
+          <label htmlFor="group" className="label">Group (e.g. Discord Nitro)</label>
+          <input id="group" name="group" type="text" defaultValue={initial.group} className="input" placeholder="Optional — groups products together" />
         </div>
         <div>
           <label htmlFor="stock" className="label">Stock</label>

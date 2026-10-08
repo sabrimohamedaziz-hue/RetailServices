@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/logo";
 import { CartBadge } from "@/components/cart-badge";
+import { CurrencySelector } from "@/components/currency-selector";
+import { getCurrency } from "@/lib/currency.server";
+import type { CurrencyCode } from "@/lib/currency";
 import { formatMoney } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { logoutAction } from "@/actions/auth.actions";
@@ -23,7 +26,7 @@ const LINKS = [
   { href: "/orders", label: "Orders" },
 ];
 
-export function Navbar({ user }: { user: NavUser | null }) {
+export function Navbar({ user, currency }: { user: NavUser | null; currency: CurrencyCode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -78,6 +81,7 @@ export function Navbar({ user }: { user: NavUser | null }) {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
+          <CurrencySelector active={currency} />
           <CartBadge />
           {user ? (
             <>

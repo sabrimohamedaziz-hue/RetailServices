@@ -117,6 +117,7 @@ export async function saveProductAction(
     description: formData.get("description"),
     price: formData.get("price"),
     category: formData.get("category"),
+    group: formData.get("group"),
     imageUrl: formData.get("imageUrl"),
     stock: formData.get("stock"),
     active: formData.get("active") === "on",

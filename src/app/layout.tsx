@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { Particles } from "@/components/particles";
 import { CursorGlow } from "@/components/cursor-glow";
 import { getSessionUser } from "@/lib/auth";
+import { getCurrency } from "@/lib/currency.server";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getSessionUser();
+  const [user, currency] = await Promise.all([getSessionUser(), getCurrency()]);
 
   return (
     <html lang="en" className={inter.variable}>
@@ -51,6 +52,7 @@ export default async function RootLayout({
                   }
                 : null
             }
+            currency={currency}
           />
           <main className="flex-1">{children}</main>
           <Footer />

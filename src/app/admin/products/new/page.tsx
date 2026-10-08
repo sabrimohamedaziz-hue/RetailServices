@@ -20,6 +20,7 @@ export default function NewProductPage() {
           description: "",
           price: "",
           category: "Gaming",
+          group: "",
           imageUrl: "",
           stock: 0,
           active: true,

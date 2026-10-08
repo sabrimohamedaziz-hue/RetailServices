@@ -8,14 +8,16 @@ export type ProductSort = "featured" | "price-asc" | "price-desc" | "name";
 export async function listProducts(options: {
   query?: string;
   category?: string;
+  group?: string;
   sort?: ProductSort;
   onlyActive?: boolean;
 }) {
-  const { query, category, sort = "featured", onlyActive = true } = options;
+  const { query, category, group, sort = "featured", onlyActive = true } = options;
 
   const where: Prisma.ProductWhereInput = {
     ...(onlyActive ? { active: true } : {}),
     ...(category ? { category } : {}),
+    ...(group ? { group } : {}),
     ...(query
       ? {
           OR: [
@@ -59,6 +61,40 @@ export async function listProductsForAdmin() {
   });
 }
 
+/** Product groups ("Discord Nitro", "Netflix"…) with count and lowest price. */
+export async function listProductGroups() {
+  const products = await prisma.product.findMany({
+    where: { active: true, group: { not: null } },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const groups = new Map<string, { name: string; count: number; lowest: number; image: string | null }>();
+  for (const product of products) {
+    const name = product.group as string;
+    const entry = groups.get(name) ?? { name, count: 0, lowest: Number.MAX_SAFE_INTEGER, image: null };
+    entry.count += 1;
+    entry.lowest = Math.min(entry.lowest, Number(product.price));
+    entry.image = entry.image ?? product.imageUrl;
+    groups.set(name, entry);
+  }
+
+  return [...groups.values()]
+    .map((g) => ({ ...g, lowest: g.lowest === Number.MAX_SAFE_INTEGER ? 0 : g.lowest }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export async function listProductsByGroup(group: string) {
+  return prisma.product.findMany({
+    where: { active: true, group },
+    orderBy: { price: "asc" },
+  });
+}
+
+export async function getProductGroupName(group: string) {
+  const product = await prisma.product.findFirst({ where: { group } });
+  return product?.group ?? group;
+}
+
 export async function getProductForAdmin(id: string) {
   const product = await prisma.product.findUnique({ where: { id } });
   if (!product) throw new AppError("Product not found.");
@@ -96,6 +132,7 @@ export async function createProduct(input: ProductInput) {
       description: input.description,
       price: new Prisma.Decimal(input.price),
       category: input.category,
+      group: input.group || null,
       imageUrl: input.imageUrl || null,
       stock: input.stock,
       active: input.active,
@@ -121,6 +158,7 @@ export async function updateProduct(id: string, input: ProductInput) {
       description: input.description,
       price: new Prisma.Decimal(input.price),
       category: input.category,
+      group: input.group || null,
       imageUrl: input.imageUrl || null,
       stock: input.stock,
       active: input.active,

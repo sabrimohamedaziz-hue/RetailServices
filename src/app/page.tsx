@@ -4,6 +4,7 @@ import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { Crystal } from "@/components/crystal";
 import { getFeaturedProducts } from "@/lib/services/product.service";
+import { getCurrency } from "@/lib/currency.server";
 import { CATEGORIES } from "@/lib/constants";
 
 const CATEGORIES_WITH_ICONS: Record<string, string> = {
@@ -28,7 +29,10 @@ const STEPS = [
 ];
 
 export default async function HomePage() {
-  const featured = await getFeaturedProducts(4);
+  const [featured, currency] = await Promise.all([
+    getFeaturedProducts(4),
+    getCurrency(),
+  ]);
 
   return (
     <div>
@@ -113,7 +117,7 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} currency={currency} />
             ))}
           </div>
         </Reveal>

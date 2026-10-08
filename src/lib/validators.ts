@@ -46,6 +46,7 @@ export const productInputSchema = z.object({
     .max(100000)
     .multipleOf(0.01),
   category: z.enum(["Gaming", "Subscriptions", "Digital Products", "Boosts"]),
+  group: z.union([z.literal(""), z.string().trim().max(60)]).optional(),
   imageUrl: z
     .union([
       z.literal(""),
