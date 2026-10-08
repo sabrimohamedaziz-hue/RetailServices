@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { StatCounter } from "@/components/stat-counter";
-import { RsMark } from "@/components/rs-mark";
+import { BrandLogo } from "@/components/brand-logo";
 import { PrismDivider } from "@/components/prism-divider";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { getCurrency } from "@/lib/currency.server";
@@ -57,7 +57,7 @@ export default async function HomePage() {
         <div className="hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 pb-20 pt-20 text-center sm:px-6 sm:pt-28">
           <div className="mb-8 flex justify-center">
-            <RsMark size={104} />
+            <BrandLogo size={128} ring />
           </div>
 
           <div className="relative mx-auto mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-2 backdrop-blur-sm">

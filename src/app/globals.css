@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette taken from the RS emblem: emerald light on near-black */
-  --color-void: #030604;
-  --color-surface: #070d09;
-  --color-surface-2: #0b1410;
-  --color-surface-3: #12201a;
-  --color-line: #1a2c22;
-  --color-line-strong: #274436;
-  --color-ink: #f1f8f3;
-  --color-ink-dim: #a6bcb0;
-  --color-ink-mute: #6a8175;
-  --color-brand: #4ade80;
-  --color-brand-deep: #16a34a;
-  --color-mint: #bbf7d0;
+  /* Monochrome silver palette taken from the RS logo (white on black).
+     Emerald stays as the glow accent only. */
+  --color-void: #050607;
+  --color-surface: #0b0d0f;
+  --color-surface-2: #111417;
+  --color-surface-3: #191d22;
+  --color-line: #23282e;
+  --color-line-strong: #39414a;
+  --color-ink: #f6f8f9;
+  --color-ink-dim: #a8b1b9;
+  --color-ink-mute: #6b747d;
+  --color-brand: #e8ecef;
+  --color-brand-deep: #c3cbd2;
+  --color-mint: #dfe5e9;
   --color-lime: #86efac;
+  --color-emerald: #4ade80;
   --color-success: #4ade80;
   --color-danger: #f87171;
   --color-warning: #fbbf24;
@@ -248,7 +250,7 @@ body {
 }
 
 .text-aurora {
-  background: linear-gradient(100deg, #eafff1 0%, #4ade80 32%, #a78bfa 66%, #67e8f9 100%);
+  background: linear-gradient(100deg, #ffffff 0%, #dfe5e9 34%, #86efac 68%, #ffffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -326,7 +328,7 @@ body {
 }
 
 @utility btn-primary {
-  @apply btn bg-gradient-to-r from-brand-deep to-brand text-white shadow-lg shadow-brand/25 hover:shadow-brand/45 hover:brightness-110 active:scale-[0.98];
+  @apply btn bg-ink text-void shadow-[0_10px_30px_-12px_rgba(255,255,255,0.35)] hover:bg-white hover:shadow-[0_14px_40px_-14px_rgba(255,255,255,0.5)] active:scale-[0.98];
 }
 
 @utility btn-secondary {
