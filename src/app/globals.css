@@ -167,6 +167,133 @@ body {
   background: rgba(183, 166, 245, 0.35);
 }
 
+/* ————— Interactive 3D crystal ————— */
+.crystal-scene {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+  margin: 0 auto;
+}
+
+.crystal-tilt {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.crystal-cube {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: cube-spin 16s linear infinite;
+}
+
+.crystal-face {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(183, 166, 245, 0.45);
+  background: linear-gradient(135deg, rgba(183, 166, 245, 0.16), rgba(125, 211, 252, 0.07));
+  box-shadow:
+    inset 0 0 40px rgba(183, 166, 245, 0.12),
+    0 0 30px rgba(139, 116, 232, 0.15);
+  backdrop-filter: blur(2px);
+}
+
+.crystal-front { transform: translateZ(150px); }
+.crystal-back { transform: rotateY(180deg) translateZ(150px); }
+.crystal-right { transform: rotateY(90deg) translateZ(150px); }
+.crystal-left { transform: rotateY(-90deg) translateZ(150px); }
+.crystal-top { transform: rotateX(90deg) translateZ(150px); }
+.crystal-bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+.crystal-core {
+  position: absolute;
+  inset: 22%;
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg, #b7a6f5, #7dd3fc 60%, #f4c2d6);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  opacity: 0.85;
+  filter: blur(1px);
+  animation: core-pulse 3.2s ease-in-out infinite;
+}
+
+.crystal-ring {
+  position: absolute;
+  border: 1px solid rgba(183, 166, 245, 0.3);
+  border-radius: 9999px;
+  left: 50%;
+  top: 50%;
+}
+
+.crystal-ring-1 {
+  width: 380px;
+  height: 380px;
+  margin: -190px 0 0 -190px;
+  transform: rotateX(72deg);
+  animation: ring-spin 10s linear infinite;
+}
+
+.crystal-ring-2 {
+  width: 440px;
+  height: 440px;
+  margin: -220px 0 0 -220px;
+  transform: rotateX(72deg) rotateZ(40deg);
+  border-color: rgba(125, 211, 252, 0.22);
+  animation: ring-spin 14s linear infinite reverse;
+}
+
+.crystal-glow {
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, rgba(139, 116, 232, 0.22), transparent 60%);
+  filter: blur(30px);
+  animation: core-pulse 4s ease-in-out infinite;
+}
+
+@keyframes cube-spin {
+  from { transform: rotateX(-18deg) rotateY(0deg); }
+  to { transform: rotateX(-18deg) rotateY(360deg); }
+}
+
+@keyframes core-pulse {
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes ring-spin {
+  from { transform: rotateX(72deg) rotateZ(0deg); }
+  to { transform: rotateX(72deg) rotateZ(360deg); }
+}
+
+/* ————— Particle canvas ————— */
+.particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* ————— Cursor glow ————— */
+.cursor-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(139, 116, 232, 0.14), transparent 65%);
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: screen;
+}
+
+@media (hover: none) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
 @utility input {
   @apply w-full rounded-lg border border-line bg-surface-2/80 px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-mute focus:border-brand/60 focus:ring-2 focus:ring-brand/20;
 }

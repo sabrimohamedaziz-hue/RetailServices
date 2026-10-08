@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
+import { Crystal } from "@/components/crystal";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -37,36 +38,41 @@ export default async function HomePage() {
           aria-hidden
           className="pointer-events-none absolute left-1/2 top-0 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-brand/10 blur-[140px]"
         />
-        <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 pb-20 pt-20 text-center sm:px-6 sm:pt-28">
-          <Image
-            src="/logo.png"
-            alt="RetailServices logo"
-            width={128}
-            height={128}
-            priority
-            className="mb-8 rounded-3xl ring-1 ring-line-strong"
-          />
-          <p className="mb-4 text-xs font-semibold tracking-[0.35em] text-mint">
-            RETAILSERVICES
-          </p>
-          <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            <span className="text-aurora">Power Up</span> Your Digital Experience
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-ink-dim sm:text-lg">
-            Premium digital products and gaming services, made simple.
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/store" className="btn-primary min-w-40">
-              Browse Store
-            </Link>
-            <a
-              href={process.env.DISCORD_INVITE_URL ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary min-w-40"
-            >
-              Join Discord
-            </a>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-20 sm:px-6 sm:pt-28 lg:grid-cols-2">
+          <div className="text-center lg:text-left">
+            <Image
+              src="/logo.png"
+              alt="RetailServices logo"
+              width={96}
+              height={96}
+              priority
+              className="mb-8 rounded-2xl ring-1 ring-line-strong mx-auto lg:mx-0"
+            />
+            <p className="mb-4 text-xs font-semibold tracking-[0.35em] text-mint">
+              RETAILSERVICES
+            </p>
+            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              <span className="text-aurora">Power Up</span> Your Digital Experience
+            </h1>
+            <p className="mt-5 max-w-xl text-base text-ink-dim sm:text-lg mx-auto lg:mx-0">
+              Premium digital products and gaming services, made simple.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+              <Link href="/store" className="btn-primary min-w-40">
+                Browse Store
+              </Link>
+              <a
+                href={process.env.DISCORD_INVITE_URL ?? "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary min-w-40"
+              >
+                Join Discord
+              </a>
+            </div>
+          </div>
+          <div className="relative hidden sm:block">
+            <Crystal />
           </div>
         </div>
       </section>

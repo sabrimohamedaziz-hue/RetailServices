@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { ToastProvider } from "@/components/ui/toaster";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { Particles } from "@/components/particles";
+import { CursorGlow } from "@/components/cursor-glow";
 import { getSessionUser } from "@/lib/auth";
 import "./globals.css";
 
@@ -35,6 +37,8 @@ export default async function RootLayout({
         <div className="aurora" aria-hidden>
           <div className="blob blob-3" />
         </div>
+        <Particles />
+        <CursorGlow />
         <ToastProvider>
           <Navbar
             user={
