@@ -10,12 +10,12 @@ export function PrismDivider() {
         <span
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(135deg,#c4b5fd,#67e8f9,#f0abfc)",
+            background: "linear-gradient(135deg,#4ade80,#67e8f9,#a78bfa)",
             animation: "prism-spin 6s linear infinite",
           }}
         />
       </span>
-      <span className="h-px w-16 bg-gradient-to-l from-transparent to-lime/50 sm:w-28" />
+      <span className="h-px w-16 bg-gradient-to-l from-transparent to-prism/50 sm:w-28" />
     </div>
   );
 }

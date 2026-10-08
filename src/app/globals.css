@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void: #050309;
-  --color-surface: #0d0817;
-  --color-surface-2: #140d24;
-  --color-surface-3: #1d1433;
-  --color-line: #241a3d;
-  --color-line-strong: #3a2b60;
-  --color-ink: #f2f0fa;
-  --color-ink-dim: #aca6c4;
-  --color-ink-mute: #6f6890;
-  --color-brand: #a78bfa;
-  --color-brand-deep: #7c3aed;
-  --color-mint: #c4b5fd;
-  --color-lime: #67e8f9;
-  --color-rose: #f0abfc;
+  /* Palette taken from the RS emblem: emerald light on near-black */
+  --color-void: #030604;
+  --color-surface: #070d09;
+  --color-surface-2: #0b1410;
+  --color-surface-3: #12201a;
+  --color-line: #1a2c22;
+  --color-line-strong: #274436;
+  --color-ink: #f1f8f3;
+  --color-ink-dim: #a6bcb0;
+  --color-ink-mute: #6a8175;
+  --color-brand: #4ade80;
+  --color-brand-deep: #16a34a;
+  --color-mint: #bbf7d0;
+  --color-lime: #86efac;
   --color-success: #4ade80;
-  --color-danger: #fb7185;
+  --color-danger: #f87171;
   --color-warning: #fbbf24;
+
+  /* Prism dispersion accents — the signature secondary */
+  --color-prism: #a78bfa;
+  --color-prism-2: #67e8f9;
+  --color-prism-3: #f0abfc;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-poppins), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -56,7 +61,7 @@ body {
   position: absolute;
   border-radius: 9999px;
   filter: blur(110px);
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.16), transparent 68%);
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.16), transparent 68%);
   animation: glow-drift 22s ease-in-out infinite;
 }
 
@@ -65,6 +70,7 @@ body {
   left: -12rem;
   width: 46rem;
   height: 46rem;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.16), transparent 68%);
 }
 
 .pfx-glows::after {
@@ -72,7 +78,7 @@ body {
   right: -14rem;
   width: 42rem;
   height: 42rem;
-  background: radial-gradient(circle, rgba(103, 232, 249, 0.12), transparent 68%);
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.13), transparent 68%);
   animation-duration: 27s;
   animation-direction: alternate-reverse;
 }
@@ -91,7 +97,7 @@ body {
   height: 32rem;
   margin-left: -22rem;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.28), transparent 65%);
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.26), transparent 65%);
   filter: blur(90px);
   animation: glow-drift 18s ease-in-out infinite;
   pointer-events: none;
@@ -113,7 +119,8 @@ body {
   width: var(--s);
   height: var(--s);
   border-radius: 9999px;
-  background: rgba(167, 139, 250, 0.4);
+  background: rgba(74, 222, 128, 0.45);
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
   opacity: 0;
   animation: pfx-float var(--d) linear var(--delay) infinite;
 }
@@ -155,15 +162,15 @@ body {
     box-shadow: none;
   }
   4%, 8% {
-    border-color: rgba(167, 139, 250, 0.55);
+    border-color: rgba(74, 222, 128, 0.6);
     color: var(--color-mint);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.14);
   }
 }
 
 /* 5. Radar sweep ring */
 .radar-sweep {
-  background: conic-gradient(from 0deg, transparent 78%, rgba(167, 139, 250, 0.25) 96%, rgba(167, 139, 250, 0.45) 100%);
+  background: conic-gradient(from 0deg, transparent 78%, rgba(74, 222, 128, 0.25) 96%, rgba(74, 222, 128, 0.5) 100%);
   animation: spin-slow 5s linear infinite;
 }
 
@@ -199,9 +206,9 @@ body {
   position: relative;
   border-radius: 1.25rem;
   border: 1px solid var(--color-line);
-  background: linear-gradient(160deg, rgba(167, 139, 250, 0.06), rgba(255, 255, 255, 0.015));
+  background: linear-gradient(160deg, rgba(74, 222, 128, 0.06), rgba(255, 255, 255, 0.015));
   backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 44px -26px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 44px -26px rgba(0, 0, 0, 0.85);
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
@@ -214,7 +221,7 @@ body {
   background: conic-gradient(
     from var(--angle),
     transparent 55%,
-    rgba(167, 139, 250, 0.9) 72%,
+    rgba(74, 222, 128, 0.9) 72%,
     rgba(103, 232, 249, 0.8) 85%,
     transparent
   );
@@ -229,9 +236,9 @@ body {
 }
 
 .card-hover:hover {
-  border-color: rgba(167, 139, 250, 0.45);
+  border-color: rgba(74, 222, 128, 0.45);
   transform: translateY(-4px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 26px 60px -24px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 26px 60px -24px rgba(22, 163, 74, 0.5);
 }
 
 .card-hover:hover::before { opacity: 1; }
@@ -241,7 +248,7 @@ body {
 }
 
 .text-aurora {
-  background: linear-gradient(100deg, #c4b5fd 0%, #a78bfa 30%, #67e8f9 62%, #f0abfc 100%);
+  background: linear-gradient(100deg, #eafff1 0%, #4ade80 32%, #a78bfa 66%, #67e8f9 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -395,10 +402,10 @@ body {
   border-color: transparent;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    -1px 0 0 rgba(240, 171, 252, 0.5),
-    1px 0 0 rgba(103, 232, 249, 0.5),
-    0 -1px 0 rgba(196, 181, 253, 0.4),
-    0 26px 60px -24px rgba(124, 58, 237, 0.55);
+    -1px 0 0 rgba(240, 171, 252, 0.45),
+    1px 0 0 rgba(103, 232, 249, 0.45),
+    0 -1px 0 rgba(74, 222, 128, 0.5),
+    0 26px 60px -24px rgba(22, 163, 74, 0.5);
 }
 
 /* ————————————————————————
@@ -418,23 +425,23 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: linear-gradient(135deg, #c4b5fd, #67e8f9);
-  box-shadow: 0 0 12px rgba(167, 139, 250, 0.9);
+  background: linear-gradient(135deg, #4ade80, #a78bfa);
+  box-shadow: 0 0 14px rgba(74, 222, 128, 0.9);
 }
 
 .crystal-cursor-ring {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1px solid rgba(196, 181, 253, 0.6);
-  box-shadow: 0 0 22px rgba(167, 139, 250, 0.35), inset 0 0 14px rgba(103, 232, 249, 0.18);
+  border: 1px solid rgba(74, 222, 128, 0.55);
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.3), inset 0 0 16px rgba(167, 139, 250, 0.16);
   transition: width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
 }
 
 .crystal-cursor-ring.is-pressed {
   width: 26px;
   height: 26px;
-  border-color: rgba(240, 171, 252, 0.9);
+  border-color: rgba(167, 139, 250, 0.9);
 }
 
 @media (hover: none) {
