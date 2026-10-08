@@ -17,11 +17,8 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   const inStock = product.stock > 0;
 
   return (
-    <Link
-      href={`/store/${product.slug}`}
-      className="card card-hover group flex flex-col overflow-hidden"
-    >
-      <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
+    <div className="card card-hover group flex flex-col overflow-hidden">
+      <Link href={`/store/${product.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-surface-2">
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -37,21 +34,38 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           </div>
         )}
         <span className="absolute left-3 top-3 badge-brand">{product.category}</span>
-      </div>
+        {inStock && (
+          <span className="absolute right-3 top-3 badge-green">Instant delivery</span>
+        )}
+      </Link>
+
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="font-medium text-ink">{product.name}</h3>
+        <Link href={`/store/${product.slug}`}>
+          <h3 className="font-medium leading-snug text-ink transition-colors group-hover:text-mint">
+            {product.name}
+          </h3>
+        </Link>
         <p className="line-clamp-2 text-sm text-ink-mute">{product.description}</p>
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="text-lg font-semibold text-ink">{formatMoney(product.price)}</span>
-          {inStock ? (
-            <span className="badge-green">In stock</span>
-          ) : (
-            <span className="badge-red">Out of stock</span>
+
+        <div className="mt-auto flex items-center justify-between pt-3">
+          <div>
+            <p className="text-lg font-semibold text-ink">{formatMoney(product.price)}</p>
+            {inStock ? (
+              <p className="text-xs text-success">{product.stock} in stock</p>
+            ) : (
+              <p className="text-xs text-danger">Out of stock</p>
+            )}
+          </div>
+          {inStock && (
+            <Link href={`/store/${product.slug}`} className="btn-primary px-3.5 py-2 text-xs">
+              Buy now
+            </Link>
           )}
         </div>
+
         {inStock && (
           <AddToCartButton
-            className="btn-secondary mt-3 w-full text-xs"
+            className="btn-secondary mt-2 w-full text-xs"
             item={{
               slug: product.slug,
               name: product.name,
@@ -62,6 +76,6 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           />
         )}
       </div>
-    </Link>
+    </div>
   );
 }
