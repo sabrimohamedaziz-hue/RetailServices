@@ -32,8 +32,8 @@ export default async function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="flex min-h-screen flex-col">
-        <div className="ambient" aria-hidden>
-          <div className="orb orb-3" />
+        <div className="aurora" aria-hidden>
+          <div className="blob blob-3" />
         </div>
         <ToastProvider>
           <Navbar

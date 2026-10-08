@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
+import { Reveal } from "@/components/reveal";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -49,7 +50,7 @@ export default async function HomePage() {
             RETAILSERVICES
           </p>
           <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Power Up Your Digital Experience
+            <span className="text-aurora">Power Up</span> Your Digital Experience
           </h1>
           <p className="mt-5 max-w-xl text-base text-ink-dim sm:text-lg">
             Premium digital products and gaming services, made simple.
@@ -72,7 +73,7 @@ export default async function HomePage() {
 
       {/* Featured products */}
       {featured.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <div className="mb-8 flex items-end justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight">Featured Products</h2>
@@ -87,11 +88,11 @@ export default async function HomePage() {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-        </section>
+        </Reveal>
       )}
 
       {/* Categories */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">Categories</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CATEGORIES.map((category) => (
@@ -108,10 +109,10 @@ export default async function HomePage() {
             </Link>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* How it works */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <h2 className="mb-10 text-2xl font-semibold tracking-tight">How It Works</h2>
         <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, index) => (
@@ -124,7 +125,7 @@ export default async function HomePage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Reveal>
     </div>
   );
 }

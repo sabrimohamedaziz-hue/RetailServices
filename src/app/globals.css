@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void: #0a0c0f;
-  --color-surface: #101318;
-  --color-surface-2: #151a21;
-  --color-surface-3: #1c232d;
-  --color-line: #222a35;
-  --color-line-strong: #323d4d;
-  --color-ink: #edf0f4;
-  --color-ink-dim: #a6b0bd;
-  --color-ink-mute: #6b7686;
-  --color-brand: #d3b384;
-  --color-brand-deep: #b3925f;
-  --color-mint: #ecdcba;
-  --color-lime: #8b98a8;
-  --color-success: #5fae8b;
-  --color-danger: #e07373;
-  --color-warning: #d8b36a;
+  --color-void: #07080d;
+  --color-surface: #0d0f16;
+  --color-surface-2: #12151f;
+  --color-surface-3: #1a1e2c;
+  --color-line: #232839;
+  --color-line-strong: #333a52;
+  --color-ink: #eef0f8;
+  --color-ink-dim: #a8aec4;
+  --color-ink-mute: #6b7191;
+  --color-brand: #b7a6f5;
+  --color-brand-deep: #8b74e8;
+  --color-mint: #d9d2ff;
+  --color-lime: #7dd3fc;
+  --color-success: #6ee7b7;
+  --color-danger: #fda4af;
+  --color-warning: #fcd34d;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -29,8 +29,8 @@ body {
   @apply bg-void text-ink antialiased;
 }
 
-/* Animated ambient background — soft, slow, elegant (no neon) */
-.ambient {
+/* ————— Aurora background ————— */
+.aurora {
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -38,85 +38,137 @@ body {
   pointer-events: none;
 }
 
-.ambient::before,
-.ambient::after,
-.ambient .orb {
+.aurora::before,
+.aurora::after,
+.aurora .blob {
   content: "";
   position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  will-change: transform;
+}
+
+.aurora::before {
+  width: 60vmax;
+  height: 60vmax;
+  top: -25%;
+  left: -18%;
+  background: radial-gradient(circle at 30% 30%, rgba(139, 116, 232, 0.35), transparent 65%);
+  animation: aurora-a 26s ease-in-out infinite alternate;
+}
+
+.aurora::after {
   width: 55vmax;
   height: 55vmax;
-  border-radius: 9999px;
-  filter: blur(120px);
-  opacity: 0.14;
-  animation: drift 22s ease-in-out infinite alternate;
+  bottom: -28%;
+  right: -18%;
+  background: radial-gradient(circle at 60% 40%, rgba(125, 211, 252, 0.22), transparent 65%);
+  animation: aurora-b 32s ease-in-out infinite alternate;
 }
 
-.ambient::before {
-  top: -20%;
-  left: -15%;
-  background: #d3b384;
+.aurora .blob-3 {
+  top: 30%;
+  left: 45%;
+  width: 42vmax;
+  height: 42vmax;
+  background: radial-gradient(circle at 50% 50%, rgba(244, 194, 214, 0.14), transparent 65%);
+  animation: aurora-c 38s ease-in-out infinite alternate;
 }
 
-.ambient::after {
-  bottom: -25%;
-  right: -15%;
-  background: #8b98a8;
-  animation-duration: 28s;
-  animation-direction: alternate-reverse;
+@keyframes aurora-a {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(14vw, 10vh) scale(1.2); }
+  100% { transform: translate(-10vw, 16vh) scale(0.9); }
 }
 
-.ambient .orb-3 {
-  top: 35%;
-  left: 50%;
-  width: 40vmax;
-  height: 40vmax;
-  background: #7c8ea3;
-  opacity: 0.1;
-  animation: drift2 34s ease-in-out infinite alternate;
+@keyframes aurora-b {
+  0% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-16vw, -12vh) scale(0.9); }
+  100% { transform: translate(10vw, -18vh) scale(1.15); }
 }
 
-@keyframes drift {
-  0% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate(12vw, 8vh) scale(1.15) rotate(20deg);
-  }
-  100% {
-    transform: translate(-8vw, 12vh) scale(0.95) rotate(-10deg);
-  }
+@keyframes aurora-c {
+  0% { transform: translate(-15vw, 5vh) scale(0.95); }
+  50% { transform: translate(18vw, -8vh) scale(1.15); }
+  100% { transform: translate(-8vw, 14vh) scale(1); }
 }
 
-@keyframes drift2 {
-  0% {
-    transform: translate(-20vw, 0) scale(0.9);
-  }
-  50% {
-    transform: translate(20vw, -10vh) scale(1.2);
-  }
-  100% {
-    transform: translate(-10vw, 15vh) scale(1);
-  }
-}
-
-::selection {
-  background: rgba(211, 179, 132, 0.3);
-}
-
+/* ————— Glass cards ————— */
 .card {
-  border-radius: 1rem;
-  border: 1px solid var(--color-line);
-  background: var(--color-surface);
-  transition: border-color 0.2s, background-color 0.2s;
+  position: relative;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(183, 166, 245, 0.14);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 
 .card-hover:hover {
-  border-color: var(--color-line-strong);
-  background: var(--color-surface-2);
+  border-color: rgba(183, 166, 245, 0.35);
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 24px 60px -20px rgba(139, 116, 232, 0.25);
+}
+
+/* ————— Gradient text ————— */
+.text-aurora {
+  background: linear-gradient(100deg, #d9d2ff 0%, #b7a6f5 35%, #7dd3fc 70%, #f4c2d6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ————— Scroll reveal ————— */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .aurora::before,
+  .aurora::after,
+  .aurora .blob {
+    animation: none;
+  }
+}
+
+/* ————— Custom scrollbar ————— */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #07080d;
+}
+::-webkit-scrollbar-thumb {
+  background: #232839;
+  border-radius: 8px;
+  border: 2px solid #07080d;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333a52;
+}
+
+::selection {
+  background: rgba(183, 166, 245, 0.35);
 }
 
 @utility input {
-  @apply w-full rounded-lg border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-mute focus:border-brand/60 focus:ring-2 focus:ring-brand/20;
+  @apply w-full rounded-lg border border-line bg-surface-2/80 px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-mute focus:border-brand/60 focus:ring-2 focus:ring-brand/20;
 }
 
 @utility label {
@@ -128,11 +180,11 @@ body {
 }
 
 @utility btn-primary {
-  @apply btn bg-brand text-[#14100a] hover:bg-brand-deep hover:text-white active:scale-[0.98];
+  @apply btn bg-gradient-to-r from-brand-deep to-brand text-white shadow-lg shadow-brand/25 hover:shadow-brand/40 hover:brightness-110 active:scale-[0.98];
 }
 
 @utility btn-secondary {
-  @apply btn border border-line bg-surface-2 text-ink hover:border-line-strong hover:bg-surface-3 active:scale-[0.98];
+  @apply btn border border-line bg-surface-2/80 text-ink hover:border-line-strong hover:bg-surface-3 active:scale-[0.98];
 }
 
 @utility btn-danger {
