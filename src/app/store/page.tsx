@@ -23,12 +23,13 @@ const SORTS: { value: ProductSort; label: string }[] = [
 export default async function StorePage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; category?: string; group?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; group?: string; sort?: string; delivery?: string }>;
 }) {
-  const { q, category, group, sort } = await searchParams;
+  const { q, category, group, sort, delivery } = await searchParams;
   const activeSort = (SORTS.some((s) => s.value === sort) ? sort : "featured") as ProductSort;
+  const activeDelivery = delivery === "INSTANT" || delivery === "MANUAL" ? delivery : undefined;
   const [products, groups, currency] = await Promise.all([
-    listProducts({ query: q, category, sort: activeSort, group }),
+    listProducts({ query: q, category, sort: activeSort, group, delivery: activeDelivery }),
     listProductGroups(),
     getCurrency(),
   ]);
@@ -64,6 +65,11 @@ export default async function StorePage({
             <option key={s.value} value={s.value}>{s.label}</option>
           ))}
         </select>
+        <select name="delivery" defaultValue={activeDelivery ?? ""} className="input sm:w-44" aria-label="Delivery">
+          <option value="">Any delivery</option>
+          <option value="INSTANT">Instant delivery</option>
+          <option value="MANUAL">Manual delivery</option>
+        </select>
         <button type="submit" className="btn-primary sm:w-auto">Apply</button>
       </form>
 
@@ -86,7 +92,7 @@ export default async function StorePage({
                       <div className="h-14 w-14 rotate-45 rounded-lg border border-brand/25 bg-brand/10" aria-hidden />
                     </div>
                   )}
-                  <span className="absolute right-3 top-3 badge-green">Instant delivery</span>
+                  <span className="absolute right-3 top-3 badge-gray">{g.count} products</span>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-5">
                   <h3 className="font-medium text-ink group-hover:text-mint">{g.name}</h3>

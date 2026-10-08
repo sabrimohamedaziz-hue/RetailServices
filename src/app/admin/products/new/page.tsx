@@ -21,6 +21,8 @@ export default function NewProductPage() {
           price: "",
           category: "Gaming",
           group: "",
+          delivery: "MANUAL",
+          visibility: "BOTH",
           imageUrl: "",
           stock: 0,
           active: true,

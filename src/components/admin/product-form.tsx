@@ -14,6 +14,8 @@ type ProductFormValues = {
   price: string;
   category: string;
   group: string;
+  delivery: string;
+  visibility: string;
   imageUrl: string;
   stock: number;
   active: boolean;
@@ -70,13 +72,32 @@ export function ProductForm({ initial }: { initial: ProductFormValues }) {
           </select>
         </div>
         <div>
-          <label htmlFor="group" className="label">Group (e.g. Discord Nitro)</label>
-          <input id="group" name="group" type="text" defaultValue={initial.group} className="input" placeholder="Optional — groups products together" />
-        </div>
-        <div>
           <label htmlFor="stock" className="label">Stock</label>
           <input id="stock" name="stock" type="number" min="0" step="1" defaultValue={initial.stock} required className="input" />
         </div>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="delivery" className="label">Delivery type</label>
+          <select id="delivery" name="delivery" defaultValue={initial.delivery} className="input">
+            <option value="MANUAL">Manual — our team delivers it</option>
+            <option value="INSTANT">Instant — delivered automatically</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="visibility" className="label">Where it appears</label>
+          <select id="visibility" name="visibility" defaultValue={initial.visibility} className="input">
+            <option value="BOTH">Everywhere (store + group)</option>
+            <option value="GROUP_ONLY">Group only (hidden from store)</option>
+            <option value="INDIVIDUAL_ONLY">Store only (hidden from group)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="group" className="label">Group name (e.g. Discord Nitro)</label>
+        <input id="group" name="group" type="text" defaultValue={initial.group} className="input" placeholder="Optional — products with the same name become one group" />
       </div>
 
       <div>

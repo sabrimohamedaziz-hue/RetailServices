@@ -64,7 +64,17 @@ export default async function GroupPage({
                     <div className="h-14 w-14 rotate-45 rounded-lg border border-brand/25 bg-brand/10" aria-hidden />
                   </div>
                 )}
-                {product.stock > 0 && <span className="absolute right-3 top-3 badge-green">Instant delivery</span>}
+                {product.stock > 0 && (
+                    <span
+                      className={
+                        product.delivery === "INSTANT"
+                          ? "absolute right-3 top-3 badge-green"
+                          : "absolute right-3 top-3 badge-gray"
+                      }
+                    >
+                      {product.delivery === "INSTANT" ? "Instant delivery" : "Manual delivery"}
+                    </span>
+                  )}
               </Link>
               <div className="flex flex-1 flex-col gap-2 p-5">
                 <Link href={`/store/${product.slug}`}>

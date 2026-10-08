@@ -47,6 +47,8 @@ export const productInputSchema = z.object({
     .multipleOf(0.01),
   category: z.enum(["Gaming", "Subscriptions", "Digital Products", "Boosts"]),
   group: z.union([z.literal(""), z.string().trim().max(60)]).optional(),
+  delivery: z.enum(["INSTANT", "MANUAL"]).default("MANUAL"),
+  visibility: z.enum(["BOTH", "GROUP_ONLY", "INDIVIDUAL_ONLY"]).default("BOTH"),
   imageUrl: z
     .union([
       z.literal(""),

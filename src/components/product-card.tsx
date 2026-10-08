@@ -11,10 +11,12 @@ export type ProductCardData = {
   category: string;
   imageUrl: string | null;
   stock: number;
+  delivery?: "INSTANT" | "MANUAL";
 };
 
 export function ProductCard({ product, currency = "EUR" }: { product: ProductCardData; currency?: CurrencyCode }) {
   const inStock = product.stock > 0;
+  const instant = product.delivery !== "MANUAL";
 
   return (
     <div className="card card-hover crystal-sweep disperse group flex flex-col overflow-hidden">
@@ -38,7 +40,9 @@ export function ProductCard({ product, currency = "EUR" }: { product: ProductCar
         )}
         <span className="absolute left-3 top-3 badge-brand">{product.category}</span>
         {inStock && (
-          <span className="absolute right-3 top-3 badge-green">Instant delivery</span>
+          <span className={instant ? "absolute right-3 top-3 badge-green" : "absolute right-3 top-3 badge-gray"}>
+            {instant ? "Instant delivery" : "Manual delivery"}
+          </span>
         )}
       </Link>
 

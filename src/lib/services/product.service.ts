@@ -9,15 +9,19 @@ export async function listProducts(options: {
   query?: string;
   category?: string;
   group?: string;
+  delivery?: "INSTANT" | "MANUAL";
   sort?: ProductSort;
   onlyActive?: boolean;
 }) {
-  const { query, category, group, sort = "featured", onlyActive = true } = options;
+  const { query, category, group, delivery, sort = "featured", onlyActive = true } = options;
 
   const where: Prisma.ProductWhereInput = {
     ...(onlyActive ? { active: true } : {}),
     ...(category ? { category } : {}),
     ...(group ? { group } : {}),
+    ...(delivery ? { delivery } : {}),
+    // GROUP_ONLY products live only inside their group page
+    ...(!group ? { visibility: { not: "GROUP_ONLY" } } : {}),
     ...(query
       ? {
           OR: [
@@ -42,7 +46,7 @@ export async function listProducts(options: {
 
 export async function getFeaturedProducts(limit = 4) {
   return prisma.product.findMany({
-    where: { active: true, featured: true, stock: { gt: 0 } },
+    where: { active: true, featured: true, stock: { gt: 0 }, visibility: { not: "GROUP_ONLY" } },
     orderBy: { createdAt: "desc" },
     take: limit,
   });
@@ -85,7 +89,7 @@ export async function listProductGroups() {
 
 export async function listProductsByGroup(group: string) {
   return prisma.product.findMany({
-    where: { active: true, group },
+    where: { active: true, group, visibility: { not: "INDIVIDUAL_ONLY" } },
     orderBy: { price: "asc" },
   });
 }
@@ -133,6 +137,8 @@ export async function createProduct(input: ProductInput) {
       price: new Prisma.Decimal(input.price),
       category: input.category,
       group: input.group || null,
+      delivery: input.delivery,
+      visibility: input.visibility,
       imageUrl: input.imageUrl || null,
       stock: input.stock,
       active: input.active,
@@ -159,6 +165,8 @@ export async function updateProduct(id: string, input: ProductInput) {
       price: new Prisma.Decimal(input.price),
       category: input.category,
       group: input.group || null,
+      delivery: input.delivery,
+      visibility: input.visibility,
       imageUrl: input.imageUrl || null,
       stock: input.stock,
       active: input.active,

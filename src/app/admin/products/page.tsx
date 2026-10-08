@@ -39,6 +39,8 @@ export default async function AdminProductsPage() {
                 <th className="table-head">Price</th>
                 <th className="table-head">Stock</th>
                 <th className="table-head">Status</th>
+                <th className="table-head">Delivery</th>
+                <th className="table-head">Placement</th>
                 <th className="table-head text-right">Actions</th>
               </tr>
             </thead>
@@ -62,6 +64,20 @@ export default async function AdminProductsPage() {
                         <span className="badge-gray">Inactive</span>
                       )}
                       {product.featured && <span className="badge-brand">Featured</span>}
+                    </div>
+                  </td>
+                  <td className="table-cell">
+                    <div className="flex flex-wrap gap-1.5">
+                      {product.delivery === "INSTANT" ? (
+                        <span className="badge-green">Instant</span>
+                      ) : (
+                        <span className="badge-gray">Manual</span>
+                      )}
+                      {product.visibility === "GROUP_ONLY" && <span className="badge-brand">Group only</span>}
+                      {product.visibility === "INDIVIDUAL_ONLY" && <span className="badge-amber">Store only</span>}
+                      {product.group && product.visibility === "BOTH" && (
+                        <span className="badge-gray">in {product.group}</span>
+                      )}
                     </div>
                   </td>
                   <td className="table-cell text-right">
