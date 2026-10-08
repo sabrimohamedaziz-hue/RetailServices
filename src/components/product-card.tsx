@@ -18,7 +18,10 @@ export function ProductCard({ product, currency = "EUR" }: { product: ProductCar
 
   return (
     <div className="card card-hover group flex flex-col overflow-hidden">
-      <Link href={`/store/${product.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-surface-2">
+      <Link
+        href={`/store/${product.slug}`}
+        className="zoom-img relative block aspect-[16/10] overflow-hidden bg-surface-2"
+      >
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -26,7 +29,7 @@ export function ProductCard({ product, currency = "EUR" }: { product: ProductCar
             fill
             unoptimized
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="object-cover"
           />
         ) : (
           <div className="flex h-full items-center justify-center">
@@ -41,7 +44,7 @@ export function ProductCard({ product, currency = "EUR" }: { product: ProductCar
 
       <div className="flex flex-1 flex-col gap-2 p-5">
         <Link href={`/store/${product.slug}`}>
-          <h3 className="font-medium leading-snug text-ink transition-colors group-hover:text-mint">
+          <h3 className="font-display font-medium leading-snug text-ink transition-colors group-hover:text-mint">
             {product.name}
           </h3>
         </Link>

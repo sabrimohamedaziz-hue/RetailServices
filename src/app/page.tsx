@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
-import { Crystal } from "@/components/crystal";
+import { StatCounter } from "@/components/stat-counter";
 import { getFeaturedProducts } from "@/lib/services/product.service";
 import { getCurrency } from "@/lib/currency.server";
 import { CATEGORIES } from "@/lib/constants";
@@ -25,7 +24,22 @@ const STEPS = [
   { title: "Create your account", detail: "Sign up in seconds with your email." },
   { title: "Add balance", detail: "Top up your Retail Wallet via Discord." },
   { title: "Choose a product", detail: "Browse the store and pick what you need." },
-  { title: "Receive your order", detail: "Our team fulfills your order manually." },
+  { title: "Receive your order", detail: "Our team verifies payment and sends details." },
+];
+
+const BRANDS = [
+  "Spotify",
+  "Netflix",
+  "Discord",
+  "YouTube",
+  "NordVPN",
+  "Steam",
+  "CapCut",
+  "ChatGPT",
+  "Canva",
+  "Crunchyroll",
+  "Dazn",
+  "Prime Video",
 ];
 
 export default async function HomePage() {
@@ -38,46 +52,47 @@ export default async function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-brand/10 blur-[140px]"
-        />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-20 sm:px-6 sm:pt-28 lg:grid-cols-2">
-          <div className="text-center lg:text-left">
-            <Image
-              src="/logo.png"
-              alt="RetailServices logo"
-              width={96}
-              height={96}
-              priority
-              className="mb-8 rounded-2xl ring-1 ring-line-strong mx-auto lg:mx-0"
-            />
-            <p className="mb-4 text-xs font-semibold tracking-[0.35em] text-mint">
-              RETAILSERVICES
-            </p>
-            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              <span className="text-aurora">Digital products,</span> delivered instantly
-            </h1>
-            <p className="mt-5 max-w-xl text-base text-ink-dim sm:text-lg mx-auto lg:mx-0">
-              Keys, licenses and downloads land in your account seconds after checkout — backed by
-              people who actually reply.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-              <Link href="/store" className="btn-primary min-w-40">
-                Browse Store
-              </Link>
-              <a
-                href={process.env.DISCORD_INVITE_URL ?? "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary min-w-40"
-              >
-                Join Discord
-              </a>
-            </div>
+        <div className="hero-glow" aria-hidden />
+        <div className="relative mx-auto max-w-4xl px-4 pb-20 pt-24 text-center sm:px-6 sm:pt-32">
+          <div className="relative mx-auto mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-2 backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+              <span className="ping-ring" />
+            </span>
+            <span className="text-xs font-medium text-ink-dim">
+              Instant delivery · online now
+            </span>
           </div>
-          <div className="relative hidden sm:block">
-            <Crystal />
+
+          <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+            <span className="text-aurora">Digital products,</span>
+            <br />
+            delivered instantly
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-xl text-base text-ink-dim sm:text-lg">
+            Keys, licenses and downloads land in your account seconds after checkout — backed by
+            people who actually reply.
+          </p>
+
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/store" className="btn-primary min-w-40">
+              Browse products
+            </Link>
+            <a
+              href={process.env.DISCORD_INVITE_URL ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary min-w-40"
+            >
+              Read reviews
+            </a>
+          </div>
+
+          <div className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-4">
+            <StatCounter value={9} suffix="k+" label="Orders delivered" />
+            <StatCounter value={5} suffix=" min" label="Avg. delivery" />
+            <StatCounter value={24} suffix="/7" label="Support" />
           </div>
         </div>
       </section>
@@ -90,10 +105,10 @@ export default async function HomePage() {
             { icon: "🔒", title: "Secure checkout", detail: "All payments are encrypted and safe." },
             { icon: "💬", title: "Real human support", detail: "Our team replies on Discord, fast." },
           ].map((t) => (
-            <div key={t.title} className="card flex items-center gap-4 p-5">
+            <div key={t.title} className="card card-hover flex items-center gap-4 p-5">
               <span className="text-2xl" aria-hidden>{t.icon}</span>
               <div>
-                <p className="font-medium text-ink">{t.title}</p>
+                <p className="font-display font-medium text-ink">{t.title}</p>
                 <p className="text-sm text-ink-mute">{t.detail}</p>
               </div>
             </div>
@@ -106,7 +121,7 @@ export default async function HomePage() {
         <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Popular right now</h2>
+              <h2 className="font-display text-2xl font-semibold tracking-tight">Popular right now</h2>
               <p className="mt-1 text-sm text-ink-mute">
                 Delivered automatically the moment payment clears.
               </p>
@@ -123,54 +138,75 @@ export default async function HomePage() {
         </Reveal>
       )}
 
-      {/* Brands we cover */}
-      <Reveal className="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
-        <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.3em] text-ink-mute">
+      {/* Brands marquee */}
+      <Reveal className="overflow-hidden pb-14">
+        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.3em] text-ink-mute">
           Brands we cover
         </p>
-        <div className="card flex flex-wrap items-center justify-center gap-x-8 gap-y-4 p-6">
-          {["Spotify", "Netflix", "Discord", "YouTube", "NordVPN", "Steam", "CapCut", "ChatGPT", "Canva", "Crunchyroll"].map((brand) => (
-            <span key={brand} className="text-lg font-semibold tracking-wide text-ink-dim/70 transition-colors hover:text-ink">
-              {brand}
-            </span>
-          ))}
+        <div className="marquee-fade">
+          <div className="marquee-track gap-12" style={{ "--dur": "28s" } as React.CSSProperties}>
+            {[...BRANDS, ...BRANDS].map((brand, i) => (
+              <span
+                key={i}
+                className="font-display whitespace-nowrap text-lg font-semibold tracking-wide text-ink-dim/60 transition-colors hover:text-ink"
+              >
+                {brand}
+              </span>
+            ))}
+          </div>
         </div>
       </Reveal>
 
       {/* Categories */}
-      <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="mb-8 text-2xl font-semibold tracking-tight">Categories</h2>
+      <Reveal className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight">Categories</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORIES.map((category) => (
+          {CATEGORIES.map((category, i) => (
             <Link
               key={category}
               href={`/store?category=${encodeURIComponent(category)}`}
               className="card card-hover group p-6"
             >
-              <div className="mb-5 text-4xl" aria-hidden>
-                {CATEGORIES_WITH_ICONS[category] ?? "✨"}
+              <div className="relative mb-5 flex h-12 w-12 items-center justify-center">
+                <span className="absolute inset-0 rounded-full border border-brand/20" />
+                <span className="radar-sweep absolute inset-0 rounded-full opacity-60" />
+                <span className="text-xl" aria-hidden>
+                  {CATEGORIES_WITH_ICONS[category] ?? "✨"}
+                </span>
               </div>
-              <h3 className="font-medium text-ink">{category}</h3>
+              <h3 className="font-display font-medium text-ink">{category}</h3>
               <p className="mt-1 text-sm text-ink-mute">{CATEGORY_BLURBS[category]}</p>
+              <span
+                className="chip-ring mt-4 inline-flex rounded-full border border-line px-3 py-1 text-xs"
+                style={{ animationDelay: `${i * 0.6}s` }}
+              >
+                Browse
+              </span>
             </Link>
           ))}
         </div>
       </Reveal>
 
       {/* How it works */}
-      <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="mb-10 text-2xl font-semibold tracking-tight">How It Works</h2>
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((step, index) => (
-            <li key={step.title} className="card relative p-6">
-              <span className="text-3xl font-semibold text-brand/50">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-4 font-medium text-ink">{step.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-mute">{step.detail}</p>
-            </li>
-          ))}
-        </ol>
+      <Reveal className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <h2 className="mb-10 text-center font-display text-2xl font-semibold tracking-tight">
+          How it works
+        </h2>
+        <div className="relative">
+          <div className="steps-line absolute left-0 right-0 top-6 hidden h-px lg:block" aria-hidden />
+          <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((step, index) => (
+              <li key={step.title} className="card card-hover relative p-6">
+                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-brand/30 bg-surface font-display text-sm font-semibold text-mint">
+                  {String(index + 1).padStart(2, "0")}
+                  <span className="ping-ring" />
+                </span>
+                <h3 className="mt-4 font-display font-medium text-ink">{step.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-mute">{step.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Reveal>
 
       {/* Secure checkout */}
