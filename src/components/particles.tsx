@@ -32,7 +32,8 @@ export function Particles() {
     const resize = () => {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      const count = Math.min(90, Math.floor((w * h) / 22000));
+      const isMobile = window.innerWidth < 768;
+      const count = Math.min(isMobile ? 40 : 90, Math.floor((w * h) / 22000));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,

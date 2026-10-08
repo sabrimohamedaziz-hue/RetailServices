@@ -37,6 +37,10 @@ export default async function RootLayout({
       <body className="flex min-h-screen flex-col">
         <div className="aurora" aria-hidden>
           <div className="blob blob-3" />
+          <div className="blob blob-4" />
+          <span className="shooting-star s1" />
+          <span className="shooting-star s2" />
+          <span className="shooting-star s3" />
         </div>
         <Particles />
         <CursorGlow />

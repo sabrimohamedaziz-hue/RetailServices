@@ -169,6 +169,10 @@ export function Navbar({ user, currency }: { user: NavUser | null; currency: Cur
               {formatMoney(user.balance)}
             </Link>
           )}
+          <div className="mb-3 flex items-center gap-3">
+            <CurrencySelector active={currency} />
+            <CartBadge />
+          </div>
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {links.map((link) => (
               <Link
