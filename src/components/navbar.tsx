@@ -30,12 +30,20 @@ export function Navbar({ user, currency }: { user: NavUser | null; currency: Cur
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     function onClick(event: MouseEvent) {
@@ -59,9 +67,16 @@ export function Navbar({ user, currency }: { user: NavUser | null; currency: Cur
     : LINKS;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-void/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Logo />
+    <header
+      className={cn(
+        "sticky top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "border-b border-line bg-void/85 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
+      <div className={cn("mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6", scrolled ? "h-14" : "h-16")}>
+        <Logo size={scrolled ? 30 : 34} />
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           {links.map((link) => (
@@ -160,7 +175,7 @@ export function Navbar({ user, currency }: { user: NavUser | null; currency: Cur
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-line bg-void px-4 py-3 md:hidden">
+        <div className="border-t border-line bg-void/95 px-4 py-3 backdrop-blur-xl md:hidden">
           {user?.role === "CUSTOMER" && (
             <Link
               href="/wallet"

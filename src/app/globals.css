@@ -3,18 +3,18 @@
 @theme {
   /* Monochrome silver palette taken from the RS logo (white on black).
      Emerald stays as the glow accent only. */
-  --color-void: #050607;
-  --color-surface: #0b0d0f;
-  --color-surface-2: #111417;
-  --color-surface-3: #191d22;
-  --color-line: #23282e;
-  --color-line-strong: #39414a;
-  --color-ink: #f6f8f9;
-  --color-ink-dim: #a8b1b9;
-  --color-ink-mute: #6b747d;
-  --color-brand: #e8ecef;
-  --color-brand-deep: #c3cbd2;
-  --color-mint: #dfe5e9;
+  --color-void: #040506;
+  --color-surface: #0a0c0e;
+  --color-surface-2: #101316;
+  --color-surface-3: #171b1f;
+  --color-line: #1f242a;
+  --color-line-strong: #333b44;
+  --color-ink: #f7f9fa;
+  --color-ink-dim: #aab3bb;
+  --color-ink-mute: #69737c;
+  --color-brand: #e9edf0;
+  --color-brand-deep: #c6ced4;
+  --color-mint: #e2e8ec;
   --color-lime: #86efac;
   --color-emerald: #4ade80;
   --color-success: #4ade80;
@@ -32,12 +32,57 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
   @apply bg-void text-ink antialiased;
   overflow-x: hidden;
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus ring — visible, on-brand */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid rgba(232, 236, 239, 0.65);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Section eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 236, 239, 0.5));
+}
+
+/* Cheap paint win: skip offscreen sections */
+.section-lazy {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 520px;
+}
+
+/* Studio light behind the hero */
+.studio-light {
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 70%;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgba(232, 236, 239, 0.07), transparent 70%),
+    radial-gradient(40% 40% at 78% 12%, rgba(74, 222, 128, 0.07), transparent 70%);
 }
 
 .font-display {
@@ -63,25 +108,24 @@ body {
   position: absolute;
   border-radius: 9999px;
   filter: blur(110px);
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.16), transparent 68%);
-  animation: glow-drift 22s ease-in-out infinite;
+  animation: glow-drift 24s ease-in-out infinite;
 }
 
 .pfx-glows::before {
-  top: -18rem;
-  left: -12rem;
-  width: 46rem;
-  height: 46rem;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.16), transparent 68%);
+  top: -20rem;
+  left: -14rem;
+  width: 48rem;
+  height: 48rem;
+  background: radial-gradient(circle, rgba(232, 236, 239, 0.09), transparent 68%);
 }
 
 .pfx-glows::after {
-  bottom: -20rem;
-  right: -14rem;
-  width: 42rem;
-  height: 42rem;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.13), transparent 68%);
-  animation-duration: 27s;
+  bottom: -22rem;
+  right: -16rem;
+  width: 44rem;
+  height: 44rem;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.09), transparent 68%);
+  animation-duration: 30s;
   animation-direction: alternate-reverse;
 }
 
@@ -121,9 +165,10 @@ body {
   width: var(--s);
   height: var(--s);
   border-radius: 9999px;
-  background: rgba(74, 222, 128, 0.45);
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  background: rgba(232, 236, 239, 0.5);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.35);
   opacity: 0;
+  will-change: transform, opacity;
   animation: pfx-float var(--d) linear var(--delay) infinite;
 }
 

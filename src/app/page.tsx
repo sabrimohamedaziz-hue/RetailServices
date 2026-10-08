@@ -54,6 +54,7 @@ export default async function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden">
+        <div className="studio-light" aria-hidden />
         <div className="hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 pb-20 pt-20 text-center sm:px-6 sm:pt-28">
           <div className="mb-8 flex justify-center">
@@ -127,21 +128,21 @@ export default async function HomePage() {
       {/* Popular right now */}
       {featured.length > 0 && (
         <Reveal className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <h2 className="font-display text-2xl font-semibold tracking-tight">Popular right now</h2>
-              <p className="mt-1 text-sm text-ink-mute">
-                Delivered automatically the moment payment clears.
-              </p>
-            </div>
-            <Link href="/store" className="btn-ghost hidden sm:inline-flex">
-              View all
-            </Link>
+          <div className="mb-10 text-center">
+            <p className="eyebrow justify-center">Popular right now</p>
+            <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Delivered the moment payment clears
+            </h2>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
               <ProductCard key={product.id} product={product} currency={currency} />
             ))}
+          </div>
+        <div className="mt-7 flex justify-center">
+            <Link href="/store" className="btn-ghost">
+              View all products →
+            </Link>
           </div>
         </Reveal>
       )}
@@ -150,9 +151,7 @@ export default async function HomePage() {
 
       {/* Brands marquee */}
       <Reveal className="overflow-hidden pb-14">
-        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.3em] text-ink-mute">
-          Brands we cover
-        </p>
+        <p className="eyebrow mb-6 justify-center">Brands we cover</p>
         <div className="marquee-fade">
           <div className="marquee-track gap-12" style={{ "--dur": "28s" } as React.CSSProperties}>
             {[...BRANDS, ...BRANDS].map((brand, i) => (
@@ -169,7 +168,9 @@ export default async function HomePage() {
 
       {/* Categories */}
       <Reveal className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-        <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight">Categories</h2>
+        <h2 className="font-display mb-8 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
+          Browse by category
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CATEGORIES.map((category, i) => (
             <Link
