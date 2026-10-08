@@ -197,6 +197,21 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+/* Keep the bar alive even when a phone throttles CSS animations */
+.marquee-track {
+  animation-duration: var(--dur, 32s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 767px) {
+  .marquee-track {
+    animation-duration: calc(var(--dur, 32s) * 0.75);
+  }
+}
+
 /* 4. Breathing chip ring (7.2s cycle) */
 .chip-ring {
   animation: chip-ring 7.2s ease-in-out infinite;
@@ -530,12 +545,15 @@ body {
   .pfx-glows::before,
   .pfx-glows::after,
   .hero-glow,
-  .marquee-track,
   .chip-ring,
   .radar-sweep,
   .ping-ring,
   .btn-primary::after {
     animation: none !important;
+  }
+  /* The announcement bar keeps scrolling — it carries real information */
+  .marquee-track {
+    animation-duration: 60s !important;
   }
   .card::before { animation: none; }
 }
